@@ -21,18 +21,13 @@ os.makedirs(DOWNLOADS_DIR, exist_ok=True)
 def get_common_yt_dlp_options():
     """
     Returns common yt-dlp options for bypassing YouTube bot detection.
-    Includes cookies support, user-agent spoofing, and anti-bot headers.
+    Includes cookies support and user-agent spoofing.
     """
     opts = {
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
             'Accept-Language': 'en-US,en;q=0.9',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        },
-        'extractor_args': {
-            'youtube': {
-                'player_client': ['web', 'android'],
-            }
         },
         'socket_timeout': 30,
     }
@@ -68,10 +63,9 @@ def get_yt_dlp_options(task, output_template):
             }],
         })
     else:  # mp4
-        # Choose best video + best audio and merge them to mp4, or fallback to best single file
-        # We specify mp4 format for merging to ensure compatibility
+        # Use flexible format selection with multiple fallbacks
         options.update({
-            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+            'format': 'bestvideo+bestaudio/best',
             'merge_output_format': 'mp4',
         })
 
@@ -115,6 +109,7 @@ def extract_metadata(url):
         'ffmpeg_location': FFMPEG_PATH,
         'quiet': True,
         'no_warnings': True,
+        'skip_download': True,
     })
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
