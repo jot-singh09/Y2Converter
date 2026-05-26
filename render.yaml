@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: youtube-downloader
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn youtube_downloader.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.5
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+    disk:
+      name: downloader-data
+      mountPath: /data
+      sizeGB: 10
