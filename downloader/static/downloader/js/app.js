@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme Switcher ---
     // Load persisted theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     htmlNode.setAttribute('data-theme', savedTheme);
     updateThemeUI(savedTheme);
 
@@ -154,12 +154,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Paste Button logic ---
     pasteBtn.addEventListener('click', async () => {
         try {
-            const text = await navigator.clipboard.readText();
-            youtubeUrlInput.value = text;
-            showError(false);
+            if (navigator.clipboard && navigator.clipboard.readText) {
+                const text = await navigator.clipboard.readText();
+                youtubeUrlInput.value = text;
+                showError(false);
+            } else {
+                // Fallback: focus input and prompt manual paste
+                youtubeUrlInput.value = '';
+                youtubeUrlInput.focus();
+                // Try execCommand fallback
+                try {
+                    document.execCommand('paste');
+                } catch(e) {
+                    // Show helpful message on mobile
+                    showError(true, 'Paste not available automatically. Please long-press the input field and tap "Paste".');
+                }
+            }
         } catch (err) {
-            // Clipboard API not supported or blocked
+            // Clipboard API blocked (common on mobile/HTTP)
+            youtubeUrlInput.value = '';
             youtubeUrlInput.focus();
+            showError(true, 'Auto-paste blocked by browser. Please long-press the input field and tap "Paste".');
         }
     });
 

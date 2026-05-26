@@ -1325,3 +1325,250 @@ body {
     color: var(--text-primary, #ffffff);
     text-shadow: 0 0 10px var(--primary-color, #ff0055);
 }
+
+/* ============================================= */
+/* ===== MOBILE RESPONSIVE STYLES ============= */
+/* ============================================= */
+
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        padding: 0.85rem 1rem;
+    }
+    .nav-links {
+        display: none;
+    }
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    .logo-img {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Hero */
+    .hero-title {
+        font-size: 2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    .main-wrapper {
+        padding: 1.5rem 1rem;
+    }
+
+    /* Stepper */
+    .stepper {
+        max-width: 100%;
+    }
+    .step-num {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    .step-label {
+        font-size: 0.65rem;
+    }
+    .step-line {
+        margin-bottom: 18px;
+    }
+
+    /* Converter Card */
+    .converter-container {
+        padding: 1.25rem;
+        border-radius: var(--border-radius-md);
+    }
+
+    /* URL Input */
+    .url-input-wrapper {
+        padding: 0.4rem 0.4rem 0.4rem 0.75rem;
+        border-radius: 12px;
+    }
+    .url-input-wrapper input {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.4rem;
+    }
+    .youtube-input-icon {
+        width: 18px;
+        height: 18px;
+    }
+    #paste-btn {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.8rem;
+        border-radius: 10px;
+    }
+    .btn-primary, .btn-secondary {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-radius: 12px;
+    }
+
+    /* Options Panel */
+    .options-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .settings-heading {
+        font-size: 1.1rem;
+    }
+
+    /* Video Preview */
+    .video-preview-card {
+        padding: 0.75rem;
+    }
+    .video-title {
+        font-size: 0.95rem;
+    }
+
+    /* Progress Panel */
+    .progress-info-grid {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .progress-thumbnail {
+        width: 100%;
+    }
+    .progress-status-title {
+        font-size: 1.2rem;
+    }
+    .progress-stat-row {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    /* Download Panel */
+    .download-title {
+        font-size: 1.3rem;
+    }
+    .download-subtitle {
+        font-size: 0.9rem;
+    }
+    .download-item-card {
+        padding: 1rem;
+    }
+    .download-file-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    .file-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .file-name-text {
+        font-size: 0.95rem;
+    }
+
+    /* Features Grid */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .feature-card {
+        padding: 1.25rem;
+    }
+    .feature-card h3 {
+        font-size: 1.05rem;
+    }
+
+    /* FAQ */
+    .faq-container {
+        padding: 1.5rem;
+        border-radius: var(--border-radius-md);
+    }
+    .faq-heading {
+        font-size: 1.4rem;
+    }
+    .faq-question {
+        font-size: 0.95rem;
+        padding: 1rem;
+    }
+    .faq-answer {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 1.25rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.6rem;
+        letter-spacing: -0.5px;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    .main-wrapper {
+        padding: 1rem 0.75rem;
+    }
+    .converter-container {
+        padding: 1rem;
+    }
+    .url-input-wrapper {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    .url-input-wrapper input {
+        font-size: 0.85rem;
+        min-width: 0;
+    }
+    .youtube-input-icon {
+        display: none;
+    }
+    #paste-btn {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    .format-buttons {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+    .format-btn {
+        padding: 0.65rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    .action-buttons {
+        flex-direction: column;
+    }
+    .action-buttons .btn-secondary,
+    .action-buttons .btn-primary {
+        flex: unset;
+        width: 100%;
+    }
+    .step-label {
+        font-size: 0.6rem;
+    }
+    .step-num {
+        width: 26px;
+        height: 26px;
+        font-size: 0.7rem;
+    }
+    .batch-individual-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .batch-individual-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .download-title {
+        font-size: 1.15rem;
+    }
+    .success-icon-badge {
+        width: 50px;
+        height: 50px;
+    }
+    .success-check-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
