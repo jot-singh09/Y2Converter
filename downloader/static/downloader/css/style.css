@@ -1311,3 +1311,17 @@ body {
 .footer p {
     font-weight: 500;
 }
+.portfolio-credit {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+.footer a {
+    color: var(--primary-color, #ff0055);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.footer a:hover {
+    color: var(--text-primary, #ffffff);
+    text-shadow: 0 0 10px var(--primary-color, #ff0055);
+}
