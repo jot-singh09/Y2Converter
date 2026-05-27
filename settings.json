@@ -1,0 +1,31 @@
+{
+  "site_name": "Y2Convert",
+  "hero_title": "YouTube to <span class=\"gradient-text\">MP3 & MP4</span> Converter",
+  "hero_subtitle": "Fast, secure and unlimited YouTube video downloader. Save single videos or entire channels with a single click.",
+  "footer_text": "© 2026 Y2Convert. Built with Node.js and Express.",
+  "footer_credits": "By Karanjot Singh",
+  "features": [
+    {
+      "title": "High-Speed Downloads",
+      "desc": "Features asynchronous parallel downloading on the server backend to process videos and full playlists at maximum speed."
+    },
+    {
+      "title": "Premium Quality",
+      "desc": "Extracts files in crystal-clear MP3 audio quality (up to 320kbps) and original high-definition MP4 video quality."
+    },
+    {
+      "title": "Secure & Private",
+      "desc": "100% safe from malware, redirects, and annoying ads. We process everything in the background for a secure experience."
+    },
+    {
+      "title": "Unlimited Converts",
+      "desc": "No limitations on conversions or file sizes. Convert as many single videos or entire channels as you want, completely free."
+    }
+  ],
+  "blocked_links": [
+    {
+      "pattern": "dQw4w9WgXcQ",
+      "reason": "Rick Roll test blocking"
+    }
+  ]
+}

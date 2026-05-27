@@ -4,14 +4,8 @@ set -o errexit
 
 echo "Starting build process..."
 
-# Install python dependencies
-pip install -r requirements.txt
-
-# Create staticfiles directories and collect static files
-python manage.py collectstatic --no-input
-
-# Run migrations
-python manage.py migrate
+# Install node dependencies
+npm install
 
 # Create bin directory if not exists
 mkdir -p bin

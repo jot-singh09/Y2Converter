@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= settings.site_name %> | <%= settings.footer_credits %></title>
+    
+    <!-- Google Fonts: Outfit (UI/Headings) & Space Grotesk (Tech Elements) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="glass-bg-glows">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="navbar-container">
+        <nav class="navbar">
+            <div class="nav-logo" onclick="window.location.reload()">
+                <img src="/karan12.png" alt="Logo" class="logo-img">
+                <span class="logo-text"><%= settings.site_name %></span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle Theme">
+                    <i data-lucide="moon" class="theme-icon moon-icon"></i>
+                    <i data-lucide="sun" class="theme-icon sun-icon hidden"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title"><%- settings.hero_title %></h1>
+            <p class="hero-subtitle"><%= settings.hero_subtitle %></p>
+        </section>
+
+        <!-- Stepper Indicator -->
+        <div class="stepper-wrapper">
+            <div class="stepper">
+                <div class="step step-active" id="step-ind-1">
+                    <div class="step-num">1</div>
+                    <span class="step-label">Paste Link</span>
+                </div>
+                <div class="step-line" id="step-line-1"></div>
+                <div class="step" id="step-ind-2">
+                    <div class="step-num">2</div>
+                    <span class="step-label">Configure</span>
+                </div>
+                <div class="step-line" id="step-line-2"></div>
+                <div class="step" id="step-ind-3">
+                    <div class="step-num">3</div>
+                    <span class="step-label">Convert</span>
+                </div>
+                <div class="step-line" id="step-line-3"></div>
+                <div class="step" id="step-ind-4">
+                    <div class="step-num">4</div>
+                    <span class="step-label">Download</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Converter Core Container -->
+        <section class="converter-container glass-card">
+            
+            <!-- STEP 1: Input URL -->
+            <div class="panel-section active-panel" id="panel-input">
+                <div class="input-form-group">
+                    <div class="url-input-wrapper">
+                        <i data-lucide="youtube" class="youtube-input-icon"></i>
+                        <input type="text" id="youtube-url-input" placeholder="Paste YouTube video link here..." autocomplete="off">
+                        <button id="paste-btn" class="btn-secondary" type="button">
+                            <i data-lucide="clipboard"></i> Paste
+                        </button>
+                    </div>
+                    <button id="fetch-meta-btn" class="btn-primary">
+                        <span>Fetch Video</span> <i data-lucide="arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div id="error-message-box" class="error-box hidden">
+                    <i data-lucide="alert-circle"></i>
+                    <span id="error-text">Failed to fetch. Please verify the URL.</span>
+                </div>
+                
+                <div id="loading-spinner-box" class="loading-box hidden">
+                    <div class="spinner"></div>
+                    <p>Extracting YouTube metadata, please wait...</p>
+                </div>
+            </div>
+
+            <!-- STEP 2: Select Options (MP3 / MP4 & Quality) -->
+            <div class="panel-section" id="panel-options">
+                <div class="options-layout">
+                    
+                    <!-- Left Column: Video Metadata Preview -->
+                    <div class="video-preview-card" id="video-preview">
+                        <div class="thumbnail-container">
+                            <img src="" alt="Thumbnail" id="preview-thumbnail">
+                            <span class="video-duration" id="preview-duration">00:00</span>
+                        </div>
+                        <h3 class="video-title" id="preview-title">Video Title</h3>
+                    </div>
+
+                    <!-- Right Column: Settings Form -->
+                    <div class="settings-form">
+                        <h4 class="settings-heading">Select Output Settings</h4>
+                        
+                        <div class="format-selection">
+                            <span class="label-text">Choose Format:</span>
+                            <div class="format-buttons">
+                                <button type="button" class="format-btn active" data-format="mp3">
+                                    <i data-lucide="music"></i> MP3 (Audio)
+                                </button>
+                                <button type="button" class="format-btn" data-format="mp4">
+                                    <i data-lucide="video"></i> MP4 (Video)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="quality-selection">
+                            <label for="quality-select" class="label-text">Select Quality:</label>
+                            <div class="select-wrapper">
+                                <select id="quality-select">
+                                    <!-- Options populated dynamically based on format -->
+                                    <option value="320kbps">320kbps (Best Quality)</option>
+                                    <option value="256kbps">256kbps (High Quality)</option>
+                                    <option value="192kbps">192kbps (Medium Quality)</option>
+                                    <option value="128kbps">128kbps (Standard)</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="select-arrow"></i>
+                            </div>
+                        </div>
+
+                        <!-- Channel specific panel -->
+                        <div class="channel-details-wrapper hidden" id="channel-videos-wrapper">
+                            <div class="channel-header">
+                                <i data-lucide="users" class="channel-icon"></i>
+                                <div>
+                                    <span class="channel-label">Channel Playlist</span>
+                                    <h4 class="channel-title-text" id="channel-title-display">Channel Name</h4>
+                                </div>
+                            </div>
+                            
+                            <div class="channel-selection-meta">
+                                <span id="selected-count-label">Selected: 0 / 0 videos</span>
+                                <button type="button" class="btn-link" id="select-all-toggle">Deselect All</button>
+                            </div>
+                            
+                            <div class="channel-videos-list" id="channel-videos-list">
+                                <!-- Videos populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button id="back-to-input-btn" class="btn-secondary">
+                                <i data-lucide="arrow-left"></i> Back
+                            </button>
+                            <button id="start-convert-btn" class="btn-primary btn-glow">
+                                <i data-lucide="zap"></i> Convert Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Conversion Progress -->
+            <div class="panel-section" id="panel-progress">
+                <div class="progress-layout">
+                    <h3 class="progress-status-title" id="progress-header">Converting file...</h3>
+                    
+                    <!-- Single Video Progress View -->
+                    <div id="single-progress-view">
+                        <div class="progress-info-grid">
+                            <div class="progress-thumbnail">
+                                <img src="" alt="Thumbnail" id="progress-video-thumb">
+                            </div>
+                            <div class="progress-meta-details">
+                                <h4 class="progress-video-title" id="progress-video-title">Video Title</h4>
+                                <div class="progress-stat-row">
+                                    <span>Format: <strong id="progress-fmt">MP3</strong></span>
+                                    <span>Quality: <strong id="progress-qual">320kbps</strong></span>
+                                </div>
+                                <div class="progress-stat-row">
+                                    <span>Speed: <strong id="progress-speed">-</strong></span>
+                                    <span>ETA: <strong id="progress-eta">-</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-percentage-label">
+                            <span id="progress-status-text">Starting download...</span>
+                            <span id="progress-percent-text">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Channel Batch Progress View -->
+                    <div id="batch-progress-view" class="hidden">
+                        <div class="batch-master-card">
+                            <div class="batch-master-info">
+                                <span class="batch-title" id="batch-title-display">Batch Download</span>
+                                <span class="batch-count" id="batch-progress-count">Completed: 0 / 0</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="batch-master-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="batch-items-list" id="batch-items-progress-list">
+                            <!-- Populated with items showing their progress bars -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Success & Download -->
+            <div class="panel-section" id="panel-download">
+                <div class="download-layout">
+                    <div class="success-icon-badge">
+                        <i data-lucide="check-circle" class="success-check-icon"></i>
+                    </div>
+                    
+                    <h2 class="download-title">Your file is ready!</h2>
+                    <p class="download-subtitle">Click the button below to download the converted audio/video.</p>
+
+                    <!-- Single Download Details Card -->
+                    <div class="download-item-card" id="single-download-card">
+                        <div class="download-file-info">
+                            <i data-lucide="file-audio" class="file-icon" id="download-file-icon"></i>
+                            <div class="file-meta">
+                                <h3 class="file-name-text" id="download-file-title">file_name.mp3</h3>
+                                <span class="file-specs" id="download-file-specs">320kbps • 8.45 MB</span>
+                            </div>
+                        </div>
+                        <a href="" id="primary-download-link" class="btn-primary btn-large btn-glow">
+                            <i data-lucide="download"></i> Download File
+                        </a>
+                    </div>
+
+                    <!-- Channel Batch Download Details Card -->
+                    <div class="download-item-card hidden" id="batch-download-card">
+                        <div class="download-file-info">
+                            <i data-lucide="folder-archive" class="file-icon folder-icon"></i>
+                            <div class="file-meta">
+                                <h3 class="file-name-text" id="batch-download-title">channel_videos.zip</h3>
+                                <span class="file-specs" id="batch-download-specs">Contains 0 successfully converted files</span>
+                            </div>
+                        </div>
+                        <div class="batch-download-actions">
+                            <a href="" id="batch-zip-download-link" class="btn-primary btn-large btn-glow">
+                                <i data-lucide="download"></i> Download ZIP Archive
+                            </a>
+                        </div>
+                        
+                        <div class="batch-download-individual-header">
+                            <h4>Download Individual Files</h4>
+                        </div>
+                        <div class="batch-individual-list" id="batch-individual-download-list">
+                            <!-- List of files with download icons -->
+                        </div>
+                    </div>
+
+                    <div class="download-reset-actions">
+                        <button id="convert-another-btn" class="btn-secondary">
+                            <i data-lucide="rotate-ccw"></i> Convert Another Video
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Value Propositions Section -->
+        <section class="features-grid" id="features">
+            <div class="feature-card glass-card">
+                <div class="feature-icon-wrapper">
+                    <i data-lucide="zap"></i>
+                </div>
+                <h3><%= settings.features[0].title %></h3>
+                <p><%= settings.features[0].desc %></p>
+            </div>
+            
+            <div class="feature-card glass-card">
+                <div class="feature-icon-wrapper">
+                    <i data-lucide="award"></i>
+                </div>
+                <h3><%= settings.features[1].title %></h3>
+                <p><%= settings.features[1].desc %></p>
+            </div>
+            
+            <div class="feature-card glass-card">
+                <div class="feature-icon-wrapper">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <h3><%= settings.features[2].title %></h3>
+                <p><%= settings.features[2].desc %></p>
+            </div>
+            
+            <div class="feature-card glass-card">
+                <div class="feature-icon-wrapper">
+                    <i data-lucide="infinity"></i>
+                </div>
+                <h3><%= settings.features[3].title %></h3>
+                <p><%= settings.features[3].desc %></p>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-container glass-card" id="faq">
+            <h2 class="faq-heading">Frequently Asked Questions</h2>
+            
+            <div class="faq-list">
+                <details class="faq-item" open>
+                    <summary class="faq-question">
+                        <span>How can I download a full YouTube channel?</span>
+                        <i data-lucide="chevron-down" class="faq-arrow"></i>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Simply copy the URL of the YouTube channel (e.g. <code>https://www.youtube.com/@channelname</code>) and paste it into the search bar. The app will quickly retrieve the videos list, let you choose which videos to download, select your format, and batch download them in parallel, zipping them together for a one-click download.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>What is the maximum download quality?</span>
+                        <i data-lucide="chevron-down" class="faq-arrow"></i>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>For MP3 (audio), you can choose quality presets up to 320kbps for premium audio. For MP4 (video), it downloads the best quality stream available (up to 1080p and higher) and merges the audio and video automatically.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Where are downloaded files saved?</span>
+                        <i data-lucide="chevron-down" class="faq-arrow"></i>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>If you run this application locally, files are saved directly inside the <code>media/downloads/</code> directory in the project folder. You can also download them directly to your browser's Downloads folder from the web UI.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><%= settings.footer_text %></p>
+        <p><%= settings.footer_credits %></p>
+        <p class="portfolio-credit">Made by <a href="https://programmingwithkaran.netlify.app/" target="_blank" rel="noopener noreferrer">Karanjot singh</a></p>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="/js/app.js"></script>
+</body>
+</html>
